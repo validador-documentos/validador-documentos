@@ -1,0 +1,17 @@
+<!doctype html>
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Painel Admin</title></head>
+<body>
+<h2>Painel Administrativo</h2>
+<p>Registrar novo documento</p>
+<form method="post" action="/admin/register" enctype="multipart/form-data">
+  Nome do aluno: <input name="nome" required><br>
+  ID instituição: <input name="instituicao_id" value="1660" required><br>
+  PDF: <input type="file" name="pdf" accept="application/pdf" required><br>
+  XML (opcional): <input type="file" name="xml" accept=".xml"><br>
+  <button type="submit">Registrar</button>
+</form>
+<p><a href="/admin/logout">Sair</a></p>
+</body>
+</html>

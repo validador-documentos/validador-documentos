@@ -1,0 +1,1 @@
+Veja README no deploy instruções. Configure BASE_URL and ADMIN_USER/ADMIN_PASS etc.

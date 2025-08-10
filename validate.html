@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><title>Validação</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{ font-family: Arial, sans-serif; background:#f6f7f9; color:#222 }
+    header{ background:#004a8f; color:white; padding:16px }
+    .container{ max-width:1000px; margin:20px auto; padding:16px; background:white; border-radius:6px }
+    .meta{ display:flex; gap:20px; align-items:center }
+    .badge{ background:#0070c9; color:white; padding:6px 8px; border-radius:4px }
+    embed{ width:100%; height:600px; border:1px solid #ddd }
+    .notfound{ color:#c00 }
+  </style>
+</head>
+<body>
+<header><div class="container"><strong>Consulta de Documentos Acadêmicos</strong></div></header>
+<div class="container">
+  {% if doc %}
+    <div class="meta">
+      <div>
+        <div class="badge">Código: {{ doc.codigo }}</div>
+        <h2>{{ doc.nome }}</h2>
+        <p>Instituição: {{ doc.instituicao_id }} — Registrado em: {{ doc.created_at }}</p>
+        <p><a href="/file/{{ doc.codigo }}" target="_blank">Abrir PDF em nova aba</a></p>
+      </div>
+      <div style="margin-left:auto">
+        <img src="/qr/{{ doc.codigo }}" alt="QR" width="160">
+      </div>
+    </div>
+    <hr>
+    <h3>Visualização do PDF</h3>
+    <embed src="/file/{{ doc.codigo }}" type="application/pdf">
+    <hr>
+    {% if doc.xml_path %}
+      <h3>Dados (XML)</h3>
+      <pre>{{ open(doc.xml_path).read() }}</pre>
+    {% endif %}
+  {% else %}
+    <p class="notfound">Documento não encontrado para o código informado.</p>
+  {% endif %}
+  <p><a href="/">Voltar</a></p>
+</div>
+</body>
+</html>
