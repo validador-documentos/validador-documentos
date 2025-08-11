@@ -1,7 +1,3 @@
-from flask import Flask
-
-app = Flask(__name__)
-
 import os
 from flask import Flask, render_template, request, redirect, send_file, session
 from datetime import datetime
@@ -51,3 +47,57 @@ def get_qr(codigo):
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin_login():
+    if request.method == "POST":
+        if request.form["user"] == ADMIN_USER and request.form["pwd"] == ADMIN_PASS:
+            session["admin"] = True
+            return redirect("/admin/panel")
+    return render_template("admin_login.html")
+
+@app.route("/admin/panel")
+def admin_panel():
+    if not session.get("admin"):
+        return redirect("/admin")
+    return render_template("admin_panel.html")
+
+@app.route("/admin/logout")
+def admin_logout():
+    session.clear()
+    return redirect("/")
+
+@app.route("/admin/register", methods=["POST"])
+def admin_register():
+    if not session.get("admin"):
+        return redirect("/admin")
+
+    nome = request.form.get("nome")
+    instituicao_id = request.form.get("instituicao_id")
+    codigo = f"{instituicao_id}.{secrets.token_hex(6)}"
+
+    pdf = request.files.get("pdf")
+    xml = request.files.get("xml")
+
+    pdf_path = None
+    xml_path = None
+
+    if pdf:
+        pdf_path = os.path.join(UPLOAD_FOLDER, f"{codigo}.pdf")
+        pdf.save(pdf_path)
+
+    if xml:
+        xml_path = os.path.join(UPLOAD_FOLDER, f"{codigo}.xml")
+        xml.save(xml_path)
+
+    documentos[codigo] = {
+        "codigo": codigo,
+        "nome": nome,
+        "instituicao_id": instituicao_id,
+        "pdf_path": pdf_path,
+        "xml_path": xml_path,
+        "created_at": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    }
+
+    return redirect(f"/validate?codigo={codigo}")
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
