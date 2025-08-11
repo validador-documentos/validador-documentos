@@ -1,8 +1,4 @@
-Flask
-gunicorn
-qrcode
 Flask==3.0.3
 gunicorn==21.2.0
 qrcode==7.4.2
 Pillow==10.3.0
-if __name__ != "__main__":
