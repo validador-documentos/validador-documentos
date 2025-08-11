@@ -2,3 +2,4 @@ Flask>=2.2
 gunicorn
 qrcode[pil]
 Pillow
+PyPDF2
