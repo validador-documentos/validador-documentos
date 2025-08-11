@@ -1,4 +1,3 @@
-flask
-qrcode[pil]
-PyPDF2
-reportlab
+Flask
+gunicorn
+qrcode
