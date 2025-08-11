@@ -1,4 +1,6 @@
+from flask import Flask
 
+app = Flask(__name__)
 
 import os
 from flask import Flask, render_template, request, redirect, send_file, session
