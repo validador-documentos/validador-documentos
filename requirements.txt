@@ -3,3 +3,4 @@ gunicorn
 qrcode[pil]
 Pillow
 PyPDF2
+reportlab
