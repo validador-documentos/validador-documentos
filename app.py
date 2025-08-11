@@ -74,34 +74,4 @@ def admin_register():
     codigo = f"{instituicao_id}.{secrets.token_hex(6)}"
 
     pdf = request.files.get("pdf")
-    xml = request.files.get("xml")
-
-    pdf_path = None
-    xml_path = None
-
-    if pdf:
-        pdf_path = os.path.join(UPLOAD_FOLDER, f"{codigo}.pdf")
-        pdf.save(pdf_path)
-
-    if xml:
-        xml_path = os.path.join(UPLOAD_FOLDER, f"{codigo}.xml")
-        xml.save(xml_path)
-
-    documentos[codigo] = {
-        "codigo": codigo,
-        "nome": nome,
-        "instituicao_id": instituicao_id,
-        "pdf_path": pdf_path,
-        "xml_path": xml_path,
-        "created_at": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    }
-
-    return redirect(f"/validate?codigo={codigo}")
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
-    
-git add app.py
-git commit -m "Corrigido admin_login com indentação"
-git push origin main
+    xml = request.files.get("xml
