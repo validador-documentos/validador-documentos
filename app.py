@@ -101,3 +101,7 @@ def admin_register():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+    
+git add app.py
+git commit -m "Corrigido admin_login com indentação"
+git push origin main
