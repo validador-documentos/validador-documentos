@@ -1,1 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Documentos Acadêmicos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo_estacio.png') }}" alt="Logo Estácio" class="logo">
+        <h1>Consulta de Documentos Acadêmicos</h1>
+    </header>
 
+    <main>
+        <form action="/validate" method="get" class="consulta-form">
+            <label for="codigo">Digite o código de validação:</label>
+            <input type="text" id="codigo" name="codigo" placeholder="Ex: 1660-XXXX-XXXX" required>
+            <button type="submit">Validar Documento</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; {{ now().year }} Sistema de Consulta - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
