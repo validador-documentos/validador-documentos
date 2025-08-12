@@ -1,65 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo</title>
+    <title>Painel Administrativo - Estácio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-        <img src="{{ url_for('static', filename='logo_estacio.png') }}" alt="Logo Estácio" class="logo">
-        <h1>Painel Administrativo</h1>
-    </header>
 
-    <main>
-        <h2>Adicionar Novo Documento</h2>
-        <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
-            <label for="nome">Nome do Aluno:</label>
-            <input type="text" id="nome" name="nome" required>
+<header>
+    <img src="{{ url_for('static', filename='logo_estacio.png') }}" alt="Logo Estácio">
+</header>
 
-            <label for="curso">Curso:</label>
-            <input type="text" id="curso" name="curso" required>
+<main>
+    <h1>Painel Administrativo</h1>
+    <form action="{{ url_for('admin_panel') }}" method="post" enctype="multipart/form-data">
+        <label>Código:</label><br>
+        <input type="text" name="codigo" required><br><br>
 
-            <label for="data">Data de Emissão:</label>
-            <input type="date" id="data" name="data" required>
+        <label>Nome:</label><br>
+        <input type="text" name="nome" required><br><br>
 
-            <label for="arquivo">Arquivo PDF:</label>
-            <input type="file" id="arquivo" name="arquivo" accept="application/pdf" required>
+        <label>Curso:</label><br>
+        <input type="text" name="curso" required><br><br>
 
-            <button type="submit">Enviar Documento</button>
-        </form>
+        <label>Data de Emissão:</label><br>
+        <input type="date" name="data" required><br><br>
 
-        <h2>Documentos Registrados</h2>
-        {% if documentos %}
-            <table>
-                <tr>
-                    <th>Código</th>
-                    <th>Nome</th>
-                    <th>Curso</th>
-                    <th>Data</th>
-                    <th>QR Code</th>
-                    <th>PDF</th>
-                </tr>
-                {% for codigo, doc in documentos.items() %}
-                <tr>
-                    <td>{{ codigo }}</td>
-                    <td>{{ doc.nome }}</td>
-                    <td>{{ doc.curso }}</td>
-                    <td>{{ doc.data }}</td>
-                    <td><img src="{{ url_for('get_qr', codigo=codigo) }}" alt="QR Code" width="80"></td>
-                    <td><a href="{{ url_for('get_file', codigo=codigo) }}" target="_blank">Abrir</a></td>
-                </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>Nenhum documento cadastrado.</p>
-        {% endif %}
-    </main>
+        <label>Arquivo PDF:</label><br>
+        <input type="file" name="pdf" accept="application/pdf" required><br><br>
 
-    <footer>
-        <p>&copy; {{ now().year }} Sistema de Consulta - Todos os direitos reservados.</p>
-    </footer>
+        <button type="submit">Enviar Documento</button>
+    </form>
+</main>
+
 </body>
 </html>
